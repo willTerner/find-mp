@@ -6,7 +6,9 @@ document.documentElement.style.fontSize = 100 * (document.documentElement.client
 
 function App() {
   return (
-    <Layout></Layout>
+    <Layout>
+      
+    </Layout>
   )
 }
 
