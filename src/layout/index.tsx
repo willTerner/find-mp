@@ -1,4 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
+import useStore from "../hooks/useStore";
+import { PageStore } from "../store";
 import s from './index.module.scss';
 
 interface IProp {
@@ -6,6 +8,10 @@ interface IProp {
 }
 
 export default function Layout({ children }: IProp) {
+    const { currentPage } = useStore<PageStore>();
+    useEffect(() => {
+        console.log(currentPage);
+    }, []);
     return (
         <div className={s.wrapper}>
             <div className={s.left}></div>
