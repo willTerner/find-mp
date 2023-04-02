@@ -1,20 +1,19 @@
-import React, { ReactNode, useEffect } from "react";
-import useStore from "../hooks/useStore";
-import { PageStore } from "../store";
+import { observer } from "mobx-react";
+import React, { ReactNode } from "react";
 import s from './index.module.scss';
+import { Menu }  from "./menu";
 
 interface IProp {
     children: ReactNode;
 }
 
-export default function Layout({ children }: IProp) {
-    const { currentPage } = useStore<PageStore>();
-    useEffect(() => {
-        console.log(currentPage);
-    }, []);
+export const  Layout = observer(({ children }: IProp) => {
+   
     return (
         <div className={s.wrapper}>
-            <div className={s.left}></div>
+            <div className={s.left}>
+                <Menu></Menu>
+            </div>
             <div className={s.right}>
                 <div className={s.top}></div>
                 <div className={s.mainWrapper}>
@@ -23,4 +22,4 @@ export default function Layout({ children }: IProp) {
             </div>
         </div>
     )
-}
+});

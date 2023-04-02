@@ -1,7 +1,8 @@
+import { observer } from "mobx-react";
 import React from "react";
 
-export default function DetectDirectory() {
+export const  DetectDirectory = observer(() => {
     return (
         <div>detect direcotry</div>
     );
-}
+});

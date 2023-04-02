@@ -1,7 +1,8 @@
+import { observer } from "mobx-react";
 import React from "react";
 
-export default function DetectSinglePackage() {
+export const  DetectSinglePackage = observer(() => {
     return (
         <div>detect single package</div>
     );
-}
+});

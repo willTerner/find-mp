@@ -22,6 +22,20 @@ rules.push({
   ]
 });
 
+rules.push({
+  test: /\.(png|svg|jpg|gif)$/,
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]',
+        outputPath: 'images/',
+        publicPath: '../images/'
+      }
+    }
+  ]
+});
+
 export const rendererConfig: Configuration = {
   module: {
     rules,
