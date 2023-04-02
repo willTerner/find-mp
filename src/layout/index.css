@@ -1,0 +1,36 @@
+.wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.left {
+    width: 2.1rem;
+    background: #1F1F1F;
+    box-shadow: 0.02rem 0 0.06rem 0 rgba(0,21,41,0.35);
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.top {
+    height: 0.48rem;
+    background: #141414;
+}
+
+
+.mainWrapper {
+    display: flex;
+    padding: 0.2rem;
+    background: #F5F5F5;
+    flex: 1;
+}
+
+.main {
+    flex: 1;
+    background: #FFFFFF;
+    border-radius: 0.02rem;
+}
