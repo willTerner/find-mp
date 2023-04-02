@@ -4,6 +4,7 @@ import { Classifier, PageStore } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
 import { Select } from "antd";
+import { SelectDirectory } from "../../component/SelectDirectory";
 
 export const  DetectSinglePackage = observer(() => {
     const { setClassifier } = useStore<PageStore>();
@@ -28,6 +29,7 @@ export const  DetectSinglePackage = observer(() => {
                     ]}>
                 </Select>
             </div>
+            <SelectDirectory></SelectDirectory>
         </div>
     );
 });
