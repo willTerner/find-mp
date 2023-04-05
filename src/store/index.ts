@@ -79,7 +79,9 @@ export class PageStore {
 
     resultList: DetectResultDetail[] = [];
 
-    filePath = '';
+    packagePath = '';
+
+    dirPath = '';
 
     constructor() {
         makeAutoObservable(this);
@@ -93,7 +95,11 @@ export class PageStore {
         this.classifier = classifier;
     }
 
-    setFilePath = (filePath: string) => {
-        this.filePath = filePath;
+    setPackagePath = (packagePath: string) => {
+        this.packagePath = packagePath;
+    }
+
+    setDirPath = (dirPath: string) => {
+        this.dirPath = dirPath;
     }
 }

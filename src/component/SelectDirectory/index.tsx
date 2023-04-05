@@ -1,18 +1,32 @@
-import { Button } from "antd";
+import { Button, Tooltip } from "antd";
 import { observer } from "mobx-react-lite";
-import React from "react";
+import React, { useState } from "react";
 import { API_KEY, BridgeWindow } from "../../interface";
+import s from './index.module.scss';
+import { ContainerOutlined } from "@ant-design/icons";
 
+interface IProp {
+    onSelectFile: (filePath: string) => void;
+}
 
-export const SelectDirectory = observer(() => {
+export const SelectDirectory = observer(({ onSelectFile }: IProp) => {
+    const [ filePath, setFilePath ] = useState<string>(undefined);
+
     const selectDirectory = async () => {
         const filePaths = await (window as unknown as BridgeWindow)[API_KEY.OPEN_DIRECTORY]();
-        alert(filePaths);
+        if (filePaths.length > 0) {
+            setFilePath(filePaths[0]);
+            onSelectFile(filePaths[0]);
+        }
     }
 
     return (
-        <div>
-            <Button type='primary' onClick={selectDirectory}>选择npm包</Button>
+        <div className={s.container}>
+            <div className={s.selectWrap} onClick={selectDirectory}>
+                <ContainerOutlined style={{ fontSize: '0.48rem', marginBottom: '0.2rem'}}></ContainerOutlined>
+                <span >点击上传文件</span>
+                { filePath && <Tooltip title={filePath}><span className={s.fileDesc}>选择的文件: {filePath}</span></Tooltip>}
+            </div>
         </div>
     )
 });

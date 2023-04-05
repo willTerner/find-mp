@@ -3,11 +3,11 @@ import React from "react";
 import { Classifier, PageStore } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
-import { Select } from "antd";
+import { Button, Select } from "antd";
 import { SelectDirectory } from "../../component/SelectDirectory";
 
 export const  DetectSinglePackage = observer(() => {
-    const { setClassifier } = useStore<PageStore>();
+    const { setClassifier, setPackagePath } = useStore<PageStore>();
     
     const selectClassifier = (classifier: string) => {
         setClassifier(classifier as Classifier);
@@ -29,7 +29,8 @@ export const  DetectSinglePackage = observer(() => {
                     ]}>
                 </Select>
             </div>
-            <SelectDirectory></SelectDirectory>
+            <SelectDirectory onSelectFile={packagePath => setPackagePath(packagePath)}></SelectDirectory>
+            <Button type='primary' >开始分析</Button>
         </div>
     );
 });
