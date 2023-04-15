@@ -8,7 +8,7 @@ interface IProp {
 }
 
 export const  Layout = observer(({ children }: IProp) => {
-   
+
     return (
         <div className={s.wrapper}>
             <div className={s.left}>

@@ -4,10 +4,10 @@ import hackerImg from '../../imgs/security.png';
 import { CopyFilled, ProfileFilled, FileFilled, DatabaseFilled } from '@ant-design/icons';
 import { observer } from "mobx-react";
 import useStore from "../../hooks/useStore";
-import { PageName, PageStore } from "../../store";
+import { PageName } from "../../store";
 
 export const Menu = observer(() => {
-    const { setPageName } = useStore<PageStore>();
+    const { setPageName } = useStore();
      
     return (
         <div className={s.wrapper}>

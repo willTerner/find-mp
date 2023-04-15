@@ -3,6 +3,13 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { API_KEY } from "./interface";
 
+
 contextBridge.exposeInMainWorld(API_KEY.OPEN_DIRECTORY, () => {
    return ipcRenderer.invoke(API_KEY.OPEN_DIRECTORY); 
 });
+
+contextBridge.exposeInMainWorld(API_KEY.ANALYZE_SINGLE_PACKAGE, (packagePath: string) => {
+   return ipcRenderer.invoke(API_KEY.ANALYZE_SINGLE_PACKAGE, packagePath);
+});
+
+

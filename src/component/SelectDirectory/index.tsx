@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "antd";
+import { Tooltip } from "antd";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
 import { API_KEY, BridgeWindow } from "../../interface";

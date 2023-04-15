@@ -1,5 +1,5 @@
 import React from "react";
-import { PageName, PageStore } from "../store";
+import { PageName } from "../store";
 import useStore from "../hooks/useStore";
 import { DetectSinglePackage } from "../pages/DetectSinglePackage";
 import { DetectDirectory } from "../pages/DetectDirectory";
@@ -8,7 +8,7 @@ import { ResultList }from "../pages/ResultList";
 import { observer } from "mobx-react";
 
 export const  Router = observer(() => {
-    const { currentPage } = useStore<PageStore>();
+    const { currentPage } = useStore();
     switch(currentPage) {
         case PageName.DETECT_SINGLE_PACKAGE:
             return <DetectSinglePackage></DetectSinglePackage>;
