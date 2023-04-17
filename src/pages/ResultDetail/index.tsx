@@ -80,7 +80,7 @@ export const ResultDetail = observer(() => {
                 isMalicious && 
                 <>
                     <h2>恶意特征位置</h2>
-                    <Table columns={columns} dataSource={dataSource} scroll={{ y: 2000 }}></Table>
+                    <Table columns={columns} dataSource={dataSource} ></Table>
                 </>
             }
         </div>
