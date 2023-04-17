@@ -29,6 +29,8 @@ export class PageStore {
 
     dirPath = '';
 
+    isAnalyzing = false;
+
     constructor() {
         makeAutoObservable(this);
     }
@@ -55,6 +57,10 @@ export class PageStore {
 
     setResultList = (resultList: DetectPackageResult[]) => {
         this.resultList = resultList;
+    }
+
+    setIsAnalyzing = (isAnalyzing: boolean) => {
+        this.isAnalyzing = isAnalyzing;
     }
 
 }

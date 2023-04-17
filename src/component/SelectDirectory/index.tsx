@@ -24,8 +24,8 @@ export const SelectDirectory = observer(({ onSelectFile }: IProp) => {
         <div className={s.container}>
             <div className={s.selectWrap} onClick={selectDirectory}>
                 <ContainerOutlined style={{ fontSize: '0.48rem', marginBottom: '0.2rem'}}></ContainerOutlined>
-                <span >点击上传文件</span>
-                { filePath && <Tooltip title={filePath}><span className={s.fileDesc}>选择的文件: {filePath}</span></Tooltip>}
+                <span >点击上传</span>
+                { filePath && <Tooltip title={filePath}><span className={s.fileDesc}>选择的目录: {filePath}</span></Tooltip>}
             </div>
         </div>
     )

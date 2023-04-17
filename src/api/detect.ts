@@ -4,12 +4,13 @@ import { join } from 'path';
 import { asyncExec, getPackageMetaData } from "../util";
 
 const FEATURE_EXTRACT_PATH = `/Users/huchaoqun/Desktop/code/school-course/毕设/source-code/feature-extract`;
+const NODE_PATH = '/Users/huchaoqun/.nvm/versions/node/v16.16.0/bin/node';
 
 export async function analyzeSinglePackage(packagePath: string): Promise<DetectPackageResult> {
-    const command = `nvm use 16.16.0 && cd ${FEATURE_EXTRACT_PATH} && node --es-module-specifier-resolution=node out/src/index.js -s ${packagePath}`;
+    const command = `cd ${FEATURE_EXTRACT_PATH} && ${NODE_PATH} --es-module-specifier-resolution=node out/src/index.js -s ${packagePath}`;
     try{
-       const {stdout, stderr} = await asyncExec(command);
-       if (!(stdout + stderr).match(/.*完成.*对的分析.*/)) {
+       const {stdout, stderr} = await asyncExec(command, { shell: '/bin/zsh' });
+       if (!(stdout + stderr).match(/.*完成对.*的分析.*/)) {
           return {
              success: false,
              errorMessage: JSON.stringify(stdout + stderr),

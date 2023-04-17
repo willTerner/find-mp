@@ -1,0 +1,34 @@
+.wrap {
+    padding: 0.2rem 0.3rem 0;
+}
+
+.line {
+    height: 0.4rem;
+    font-size: 0.18rem;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.firstLine {
+    display: flex;
+    justify-content: stretch;
+    div {
+        flex: 1;
+    }
+}
+
+.oneLine {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.space {
+    margin-right: 0.3rem;
+}
+
+.dividerLine {
+    height: 1px;
+    background-color: #E8E8E8;
+    margin: 0.5rem 0;
+}
+

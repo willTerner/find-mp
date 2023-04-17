@@ -24,6 +24,7 @@
 
 
 .mainWrapper {
+    position: relative;
     display: flex;
     padding: 0.2rem;
     background: #F5F5F5;
@@ -34,4 +35,5 @@
     flex: 1;
     background: #FFFFFF;
     border-radius: 0.02rem;
+    overflow-y: scroll;
 }

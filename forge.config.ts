@@ -28,6 +28,7 @@ const config: ForgeConfig = {
           },
         ],
       },
+      port: 4000,
     }),
   ],
 };

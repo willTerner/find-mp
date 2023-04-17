@@ -22,10 +22,11 @@
 .fileDesc {
     position: absolute;
     bottom: -0.3rem;
-    left: 0.1rem;
+    left: 50%;
+    transform: translateX(-50%);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 3.84rem;
+    max-width: 6.5rem;
     cursor: default;
 }

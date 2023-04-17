@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import React, {  } from "react";
+import React from "react";
 import { Classifier } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
@@ -10,7 +10,7 @@ import useMessageApi from "../../hooks/useMessageApi";
 import { pushClosableMessage } from "../../util/info";
 
 export const  DetectSinglePackage = observer(() => {
-    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult } = useStore();
+    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setIsAnalyzing } = useStore();
     const messageApi = useMessageApi();
     
     const selectClassifier = (classifier: string) => {
@@ -22,7 +22,9 @@ export const  DetectSinglePackage = observer(() => {
             messageApi.error('请选择npm包');
             return;
         }
+        setIsAnalyzing(true);
         const result = await ((window as unknown as BridgeWindow)[API_KEY.ANALYZE_SINGLE_PACKAGE](packagePath));
+        setIsAnalyzing(false);
         if (!result.success) {
             const message = JSON.parse(result.errorMessage);
             if (typeof message === 'string') {
