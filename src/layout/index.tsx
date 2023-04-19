@@ -25,7 +25,7 @@ export const  Layout = observer(({ children }: IProp) => {
                     <Mask isHideMask={!isAnalyzing}>
                         <Spin indicator={<LoadingOutlined style={{ color: 'white' }}></LoadingOutlined>} size={"large"}></Spin>
                     </Mask>
-                    <div className={s.main}>{children}</div>
+                    {children}
                 </div>
             </div>
         </div>

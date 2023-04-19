@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { Layout } from './layout';
 import { Router } from './router';
 import { PageStore } from './store';
+import './highlightJs';
 
 document.documentElement.style.fontSize = 100 * (document.documentElement.clientWidth || document.body.clientWidth) / 1442 + 'px';
 

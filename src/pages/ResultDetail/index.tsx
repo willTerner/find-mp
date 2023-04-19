@@ -48,7 +48,23 @@ export const ResultDetail = observer(() => {
         };
     });
 
-    console.log('dataSource', dataSource);
+    const getFileCode = (record: Record['content']) => {
+        if (typeof record === 'string') {
+            return record;
+        }
+        return `console.log('hello, world')`;
+    }
+
+    const renderDetial = (record: DataType) => {
+        return record.detail.map(featurePosRecord => {
+            return (
+                <div>
+                    {'文件路径: ' + featurePosRecord.filePath + '内容: '}
+                    <pre><code>{getFileCode(featurePosRecord.content)}</code></pre>
+                </div>
+            )
+        })
+    };
 
     return (
         <div className={s.wrap}>
@@ -80,7 +96,17 @@ export const ResultDetail = observer(() => {
                 isMalicious && 
                 <>
                     <h2>恶意特征位置</h2>
-                    <Table columns={columns} dataSource={dataSource} ></Table>
+                    <Table 
+                        columns={columns}
+                        dataSource={dataSource}
+                        expandable={
+                            {
+                                rowExpandable: (record) => record.featureNumber > 0,
+                                expandedRowRender: renderDetial,
+                            }
+                        }
+                        >
+                    </Table>
                 </>
             }
         </div>
