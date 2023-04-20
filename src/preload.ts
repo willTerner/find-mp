@@ -12,4 +12,8 @@ contextBridge.exposeInMainWorld(API_KEY.ANALYZE_SINGLE_PACKAGE, (packagePath: st
    return ipcRenderer.invoke(API_KEY.ANALYZE_SINGLE_PACKAGE, packagePath);
 });
 
+contextBridge.exposeInMainWorld(API_KEY.READ_FILE_BY_LINE, (filePath: string, startLine: number, endLine: number) => {
+   return ipcRenderer.invoke(API_KEY.READ_FILE_BY_LINE, filePath, startLine, endLine);
+});
+
 

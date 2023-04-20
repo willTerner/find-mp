@@ -15,7 +15,7 @@
       "*": ["node_modules/*"]
     },
     "jsx": "react",
-    "types": ["file-loader"]
+    "types": ["file-loader", "node"]
   },
   "include": ["src/**/*"]
 }

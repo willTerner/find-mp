@@ -5,6 +5,7 @@ import s from './index.module.scss';
 import cx from 'classnames';
 import { Record } from "../../interface";
 import Table, { ColumnsType } from "antd/es/table";
+import CodeRender from "../../component/CodeRender";
 
 interface DataType {
     key: string;
@@ -47,20 +48,20 @@ export const ResultDetail = observer(() => {
             detail: value,
         };
     });
-
-    const getFileCode = (record: Record['content']) => {
-        if (typeof record === 'string') {
-            return record;
+    
+    const renderRecord = (record: Record) => {
+        if (typeof record.content === 'string') {
+            return <pre><code>{record.content}</code></pre>
         }
-        return `console.log('hello, world')`;
-    }
+        return <CodeRender filePath={record.filePath} startLine={record.content.start.line - 3} endLine={record.content.end.line + 3}></CodeRender>
+    };
 
-    const renderDetial = (record: DataType) => {
+    const renderDetail = (record: DataType) => {
         return record.detail.map(featurePosRecord => {
             return (
-                <div>
+                <div key={featurePosRecord.filePath}>
                     {'文件路径: ' + featurePosRecord.filePath + '内容: '}
-                    <pre><code>{getFileCode(featurePosRecord.content)}</code></pre>
+                    {renderRecord(featurePosRecord)}
                 </div>
             )
         })
@@ -102,7 +103,7 @@ export const ResultDetail = observer(() => {
                         expandable={
                             {
                                 rowExpandable: (record) => record.featureNumber > 0,
-                                expandedRowRender: renderDetial,
+                                expandedRowRender: renderDetail,
                             }
                         }
                         >
