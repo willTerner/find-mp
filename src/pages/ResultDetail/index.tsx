@@ -6,7 +6,6 @@ import cx from 'classnames';
 import { Record } from "../../interface";
 import Table, { ColumnsType } from "antd/es/table";
 import CodeRender from "../../component/CodeRender";
-import { Tooltip } from "antd";
 
 interface DataType {
     key: string;

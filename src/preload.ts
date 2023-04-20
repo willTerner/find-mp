@@ -16,4 +16,8 @@ contextBridge.exposeInMainWorld(API_KEY.READ_FILE_BY_LINE, (filePath: string, st
    return ipcRenderer.invoke(API_KEY.READ_FILE_BY_LINE, filePath, startLine, endLine);
 });
 
+contextBridge.exposeInMainWorld(API_KEY.ANALYZE_DIRECTORY, (dirPath: string) => {
+   return ipcRenderer.invoke(API_KEY.ANALYZE_DIRECTORY, dirPath);
+});
+
 

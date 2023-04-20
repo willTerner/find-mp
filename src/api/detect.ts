@@ -1,6 +1,6 @@
-import { readFile } from "fs/promises";
+import { readFile, readdir } from "fs/promises";
 import { DetectPackageResult } from "../interface";
-import { join } from 'path';
+import { join, basename } from 'path';
 import { asyncExec, getPackageMetaData } from "../util";
 
 const FEATURE_EXTRACT_PATH = `/Users/huchaoqun/Desktop/code/school-course/毕设/source-code/feature-extract`;
@@ -48,3 +48,37 @@ export async function analyzeSinglePackage(packagePath: string): Promise<DetectP
        };
     }
  }
+
+ /**
+ * 
+ * @param dirPath 目录，目录中包含npm包，可以是多级
+ * @returns 返回dirPath中所有npm包的路径
+ */
+async function getPackagesFromDir(dirPath: string) {
+   const result: string[] = [];
+   async function resolve(dirPath: string) {
+     const files = await readdir(dirPath, {withFileTypes: true});
+     for (const file of files) {
+       if (file.name === 'package.json' && basename(dirPath) === 'package') {
+         result.push(dirPath);
+         return ;
+       }
+       if (file.isDirectory() && file.name !== 'node_modules') {
+         await resolve(join(dirPath, file.name));
+       }
+     }
+   }
+   await resolve(dirPath);
+   return result;
+}
+
+export async function analyzeDirectory(dirPath: string): Promise<DetectPackageResult[]> {
+   const packages = await getPackagesFromDir(dirPath);
+   const result: DetectPackageResult[] = [];
+
+   for (const packagePath of packages) {
+      result.push(await analyzeSinglePackage(packagePath));
+   }
+
+   return result;
+}

@@ -1,6 +1,6 @@
 import { observer } from "mobx-react";
-import React from "react";
-import { Classifier } from "../../store";
+import React, { useState } from "react";
+import { Classifier, PageName } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
 import { Button, Select } from "antd";
@@ -10,8 +10,9 @@ import useMessageApi from "../../hooks/useMessageApi";
 import { pushClosableMessage } from "../../util/info";
 
 export const  DetectSinglePackage = observer(() => {
-    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setIsAnalyzing } = useStore();
+    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setIsAnalyzing, setPageName } = useStore();
     const messageApi = useMessageApi();
+    const [isAnalyzed, setIsAnalyzed] = useState(false);
     
     const selectClassifier = (classifier: string) => {
         setClassifier(classifier as Classifier);
@@ -35,6 +36,7 @@ export const  DetectSinglePackage = observer(() => {
             return;
         }
         setDetectPackageResult(result);
+        setIsAnalyzed(true);
     };
 
     return (
@@ -53,8 +55,9 @@ export const  DetectSinglePackage = observer(() => {
                     ]}>
                 </Select>
             </div>
-            <SelectDirectory onSelectFile={packagePath => setPackagePath(packagePath)}></SelectDirectory>
-            <Button type='primary' onClick={startAnalyze}>开始分析</Button>
+            <SelectDirectory onSelectFile={packagePath => setPackagePath(packagePath)} uploadText={"点击上传npm包"}></SelectDirectory>
+            <Button type='primary' onClick={startAnalyze} style={{ marginBottom: "0.4rem"}}>开始分析</Button>
+            { isAnalyzed && <Button type="link" onClick={() => setPageName(PageName.RESULT_DETAIL)}>查看分析结果</Button>}
         </div>
     );
 });
