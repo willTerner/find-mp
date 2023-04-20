@@ -6,6 +6,7 @@ import cx from 'classnames';
 import { Record } from "../../interface";
 import Table, { ColumnsType } from "antd/es/table";
 import CodeRender from "../../component/CodeRender";
+import { Tooltip } from "antd";
 
 interface DataType {
     key: string;
@@ -51,7 +52,7 @@ export const ResultDetail = observer(() => {
     
     const renderRecord = (record: Record) => {
         if (typeof record.content === 'string') {
-            return <pre><code>{record.content}</code></pre>
+            return record.content;
         }
         return <CodeRender filePath={record.filePath} startLine={record.content.start.line - 3} endLine={record.content.end.line + 3}></CodeRender>
     };
@@ -59,9 +60,9 @@ export const ResultDetail = observer(() => {
     const renderDetail = (record: DataType) => {
         return record.detail.map(featurePosRecord => {
             return (
-                <div key={featurePosRecord.filePath}>
-                    {'文件路径: ' + featurePosRecord.filePath + '内容: '}
-                    {renderRecord(featurePosRecord)}
+                <div key={featurePosRecord.filePath} style={{ width: '11rem', overflowX: 'scroll'}}>
+                    <div style={{ whiteSpace: 'nowrap' }}>文件路径:{' ' + featurePosRecord.filePath}</div>
+                    <pre className={s.pre}><code className={s.code}>{renderRecord(featurePosRecord)}</code></pre>
                 </div>
             )
         })

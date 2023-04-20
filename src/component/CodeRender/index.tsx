@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { API_KEY, BridgeWindow } from "../../interface";
-import s from './index.module.scss';
 
 interface IProp {
     filePath: string;
@@ -19,7 +18,5 @@ export default function CodeRender({filePath, startLine, endLine}: IProp) {
         });
     }, []);
 
-    return (
-        <pre className={s.pre}><code className={s.code}>{code}</code></pre>
-    )
+    return <>{code}</>;
 }

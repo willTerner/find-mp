@@ -32,3 +32,13 @@
     margin: 0.5rem 0;
 }
 
+.pre {
+    overflow-x: auto;
+}
+
+.code {
+    overflow-wrap: normal;
+    word-wrap: normal;
+    white-space: pre;
+}
+
