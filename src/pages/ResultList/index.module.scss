@@ -1,0 +1,20 @@
+.wrap {
+    width: 12.32rem;
+    padding: 0.2rem 0.3rem 0;
+    overflow-x: scroll;
+}
+
+.highlight {
+    font-size: 0.24rem;
+    color: black;
+    font-weight: 900;
+    width: 1.3rem;
+}
+
+.pathText {
+    font-size: 0.18rem;
+    color: rgba(0, 0, 0, 0.85);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
