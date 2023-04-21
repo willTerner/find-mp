@@ -1,21 +1,33 @@
-import { Table, Tooltip } from "antd";
+import { Button, Table, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { observer } from "mobx-react";
 import React from "react";
+import { PageName } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
+import { DetectPackageResult } from "../../interface";
 
 interface DataType {
     key: string;
     packageName: string;
     filePath: string;
-    success: '是' | '否';
+    success: boolean;
     errorMessage: string;
-    resultLink: '查看检测结果' | '';
+    resultLink: '查看检测结果';
+    detectResult: DetectPackageResult,
 }
 
 export const  ResultList = observer(() => {
-    const { resultList, dirPath } = useStore();
+    const { resultList, dirPath, setPageName, setDetectPackageResult } = useStore();
+
+    const onClickResult = (record: DataType) => {
+        if (!record.success) {
+            return;
+        }
+        setDetectPackageResult(record.detectResult);
+        setPageName(PageName.RESULT_DETAIL);
+    };
+
     const columns: ColumnsType<DataType> = [
         {
             key: 'packageName',
@@ -33,13 +45,22 @@ export const  ResultList = observer(() => {
             key: 'success',
             title: '检测是否成功',
             dataIndex: 'success',
-            width: '2rem',
+            width: '2.3rem',
+            render(value, record){
+                if (record.success) {
+                    return '是';
+                }
+                return '否';
+            }
         },
         {
             key: 'resultLink',
             title: '结果链接',
             dataIndex: 'resultLink',
             width: '2rem',
+            render(text, record) {
+                return <Button disabled={!record.success} type={'link'} onClick={() => onClickResult(record)}>{text}</Button>
+            }
         },
         {
             key: 'errorMessage',
@@ -61,11 +82,12 @@ export const  ResultList = observer(() => {
 
         return {
             key: result.packagePath,
-            packageName: result.metaData.packageName,
+            packageName: result.metaData?.packageName ||  '',
             filePath: result.packagePath,
-            success: result.success ? '是' : '否',
-            resultLink: result.success ? '查看检测结果' : '',
+            success: result.success,
+            resultLink: '查看检测结果',
             errorMessage: result.errorMessage ? parseErrorMessage(result.errorMessage) : '',
+            detectResult: result,
         };
     })
 
@@ -79,7 +101,7 @@ export const  ResultList = observer(() => {
                 <span className={s.highlight}>检测目录: </span>
                 <Tooltip title={dirPath}><div className={s.pathText}>{dirPath}</div></Tooltip>
             </div>
-            <Table columns={columns} dataSource={dataSource} scroll={{ x: '16rem'}}></Table>
+            <Table columns={columns} dataSource={dataSource} scroll={{ x: '16.3rem'}}></Table>
         </div>
     )
 });
