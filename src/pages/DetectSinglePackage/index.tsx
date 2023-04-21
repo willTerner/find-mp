@@ -3,17 +3,23 @@ import React, { useState } from "react";
 import { Classifier, PageName } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
-import { Button, Select } from "antd";
+import { Button, Select, Spin } from "antd";
 import { SelectDirectory } from "../../component/SelectDirectory";
 import { API_KEY, BridgeWindow } from "../../interface";
 import useMessageApi from "../../hooks/useMessageApi";
 import { pushClosableMessage } from "../../util/info";
+import Portal from "../../component/Portal";
+import Mask from "../../component/Mask";
+import { LoadingOutlined } from "@ant-design/icons";
+import { PAGE_PARENT_ID } from "../../constant";
 
 export const  DetectSinglePackage = observer(() => {
-    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setIsAnalyzing, setPageName } = useStore();
+    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setPageName } = useStore();
     const messageApi = useMessageApi();
+
     const [isAnalyzed, setIsAnalyzed] = useState(false);
-    
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+
     const selectClassifier = (classifier: string) => {
         setClassifier(classifier as Classifier);
     }
@@ -23,6 +29,12 @@ export const  DetectSinglePackage = observer(() => {
             messageApi.error('请选择npm包');
             return;
         }
+        
+        if (isAnalyzing) {
+            messageApi.error('请等待分析结束后重试');
+            return;
+        }
+
         setIsAnalyzing(true);
         const result = await ((window as unknown as BridgeWindow)[API_KEY.ANALYZE_SINGLE_PACKAGE](packagePath));
         setIsAnalyzing(false);
@@ -58,6 +70,14 @@ export const  DetectSinglePackage = observer(() => {
             <SelectDirectory onSelectFile={packagePath => setPackagePath(packagePath)} uploadText={"点击上传npm包"}></SelectDirectory>
             <Button type='primary' onClick={startAnalyze} style={{ marginBottom: "0.4rem"}}>开始分析</Button>
             { isAnalyzed && <Button type="link" onClick={() => setPageName(PageName.RESULT_DETAIL)}>查看分析结果</Button>}
+            <Portal parentContainer={document.getElementById(PAGE_PARENT_ID)} isShowPortal={isAnalyzing}>
+                <Mask>
+                    <Spin 
+                        indicator={<LoadingOutlined style={{ color: 'white' }}></LoadingOutlined>}
+                        size={"large"}>
+                    </Spin> 
+                </Mask>
+            </Portal>
         </div>
     );
 });

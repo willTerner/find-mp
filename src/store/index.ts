@@ -29,7 +29,9 @@ export class PageStore {
 
     dirPath = '';
 
-    isAnalyzing = false;
+    totalPackageNumber?: number;
+
+    detectPackageNumber = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -59,8 +61,11 @@ export class PageStore {
         this.resultList = resultList;
     }
 
-    setIsAnalyzing = (isAnalyzing: boolean) => {
-        this.isAnalyzing = isAnalyzing;
+    setTotalPackageNumber = (totalPackageNumber: number) => {
+        this.totalPackageNumber = totalPackageNumber;
     }
 
+    updateDetectProgress = () => {
+        this.detectPackageNumber++;
+    }
 }

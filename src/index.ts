@@ -39,7 +39,7 @@ const createWindow = (): void => {
   })
 
   ipcMain.handle(API_KEY.ANALYZE_DIRECTORY, async(e, dirPath) => {
-    return await analyzeDirectory(dirPath);
+    return await analyzeDirectory(dirPath, mainWindow.webContents);
   });
   
   // and load the index.html of the app.

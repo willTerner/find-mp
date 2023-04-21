@@ -20,4 +20,12 @@ contextBridge.exposeInMainWorld(API_KEY.ANALYZE_DIRECTORY, (dirPath: string) => 
    return ipcRenderer.invoke(API_KEY.ANALYZE_DIRECTORY, dirPath);
 });
 
+contextBridge.exposeInMainWorld(API_KEY.UPDATE_PACKAGE_NUMBER, (callback: any) => {
+   ipcRenderer.on(API_KEY.UPDATE_PACKAGE_NUMBER, callback);
+});
+
+contextBridge.exposeInMainWorld(API_KEY.UPDATE_DETECT_PROGRESS, (callback: any) => {
+   ipcRenderer.on(API_KEY.UPDATE_DETECT_PROGRESS, callback);
+});
+
 

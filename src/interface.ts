@@ -2,8 +2,12 @@ export interface BridgeWindow extends Window {
     [API_KEY.OPEN_DIRECTORY]: () => Promise<string[]>,
     [API_KEY.ANALYZE_SINGLE_PACKAGE]: (packagePath: string) => Promise<DetectPackageResult>,
     [API_KEY.READ_FILE_BY_LINE]: (filePath: string, startLine: number, endLine: number) => Promise<string | undefined>,
-    [API_KEY.ANALYZE_DIRECTORY]: (dirPath: string) => Promise<DetectPackageResult[]>,
+    [API_KEY.ANALYZE_DIRECTORY]: (dirPath: string) => Promise<DetectPackageResult[]>, 
+    [API_KEY.UPDATE_PACKAGE_NUMBER]: (callback: (e: any, total: number) => void) => void,
+    [API_KEY.UPDATE_DETECT_PROGRESS]: (callback: (e: any) => void ) => void,
 }
+
+
 
 
 export enum API_KEY {
@@ -11,6 +15,8 @@ export enum API_KEY {
     ANALYZE_SINGLE_PACKAGE = 'analyzeSinglePackage',
     READ_FILE_BY_LINE = 'readFileByLine',
     ANALYZE_DIRECTORY = 'analyzeDirectory',
+    UPDATE_PACKAGE_NUMBER = 'updatePackageNumber',
+    UPDATE_DETECT_PROGRESS = 'updateDetectProgress',
 }
 
 export type Record = {
