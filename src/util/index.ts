@@ -15,7 +15,7 @@ export async function getDirectorySize(dirPath: string) {
             if (dirent.isFile()) {
                 const stats = await stat(join(dirPath, dirent.name));
                 result += stats.size;
-            } else {
+            } else if (dirent.isDirectory()){
                 await resolve(join(dirPath, dirent.name));
             }
         }
