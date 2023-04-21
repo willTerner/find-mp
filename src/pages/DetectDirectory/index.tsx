@@ -10,6 +10,7 @@ import useMessageApi from "../../hooks/useMessageApi";
 import Portal from "../../component/Portal";
 import { PAGE_PARENT_ID } from "../../constant";
 import Mask from "../../component/Mask";
+import { useLockFn } from "../../hooks/useLockFn";
 
 export const  DetectDirectory= observer(() => {
     const { setClassifier, setDirPath, dirPath, setResultList, setPageName, totalPackageNumber, detectPackageNumber } = useStore();
@@ -21,7 +22,7 @@ export const  DetectDirectory= observer(() => {
         setClassifier(classifier as Classifier);
     }
 
-    const startAnalyze = async () => {
+    const startAnalyze = useLockFn(async () => {
         if (!dirPath) {
             messageApi.error('请选择目录');
             return;
@@ -37,7 +38,7 @@ export const  DetectDirectory= observer(() => {
         setIsAnalyzing(false);
         setResultList(result);
         setIsAnalyzed(true);
-    };
+    });
 
     return (
         <div className={s.wrapper}>

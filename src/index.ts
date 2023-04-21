@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, IpcMainInvokeEvent } from 'electron';
 import { Logger } from './Logger';
 import { API_KEY } from './interface';
 import { analyzeDirectory, analyzeSinglePackage } from './api/detect';
@@ -15,44 +15,61 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = (): void => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    height: 730,
-    width: 1000,
-    webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-    },
-  });
+	// Create the browser window.
+	const mainWindow = new BrowserWindow({
+		height: 730,
+		width: 1000,
+		webPreferences: {
+		preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+		},
+	});
 
-  ipcMain.handle(API_KEY.OPEN_DIRECTORY, async() => {
-    const result = await dialog.showOpenDialog({properties: ['openDirectory']});
-    Logger.info('user choose directory: ' + result.filePaths.toString());
-    return result.filePaths;
-  });
+	const openDirectory = async() => {
+		const result = await dialog.showOpenDialog({properties: ['openDirectory']});
+		Logger.info('user choose directory: ' + result.filePaths.toString());
+		return result.filePaths;
+	};
 
-  ipcMain.handle(API_KEY.ANALYZE_SINGLE_PACKAGE, async(e, packagePath: string) => {
-    return await analyzeSinglePackage(packagePath);
-  });
+	const analyze_single_package = async (e: IpcMainInvokeEvent, packagePath: string) => {
+		return await analyzeSinglePackage(packagePath);
+	};
 
-  ipcMain.handle(API_KEY.READ_FILE_BY_LINE, async(e, filePath, startLine, endLine) => {
-    return await readFileByLine(filePath, startLine, endLine);
-  })
+	const read_file_by_line = async(e: IpcMainInvokeEvent, filePath: string, startLine: number, endLine: number) => {
+		return await readFileByLine(filePath, startLine, endLine);
+	};
 
-  ipcMain.handle(API_KEY.ANALYZE_DIRECTORY, async(e, dirPath) => {
-    return await analyzeDirectory(dirPath, mainWindow.webContents);
-  });
+	const analyze_directory = async(e: IpcMainInvokeEvent, dirPath: string) => {
+		return await analyzeDirectory(dirPath, mainWindow.webContents);
+	};
+
+	ipcMain.handle(API_KEY.OPEN_DIRECTORY, openDirectory);
+
+	ipcMain.handle(API_KEY.ANALYZE_SINGLE_PACKAGE, analyze_single_package);
+
+	ipcMain.handle(API_KEY.READ_FILE_BY_LINE, read_file_by_line);
+
+	ipcMain.handle(API_KEY.ANALYZE_DIRECTORY, analyze_directory);
   
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+	// and load the index.html of the app.
+	mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+	// Open the DevTools.
+	mainWindow.webContents.openDevTools();
+
+	mainWindow.on('close', () => {
+		Logger.info('window closed');
+		ipcMain.removeHandler(API_KEY.OPEN_DIRECTORY);
+		ipcMain.removeHandler(API_KEY.ANALYZE_SINGLE_PACKAGE);
+		ipcMain.removeHandler(API_KEY.READ_FILE_BY_LINE);
+		ipcMain.removeHandler(API_KEY.ANALYZE_DIRECTORY);
+	})
 };
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

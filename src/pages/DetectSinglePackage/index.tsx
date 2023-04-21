@@ -12,6 +12,7 @@ import Portal from "../../component/Portal";
 import Mask from "../../component/Mask";
 import { LoadingOutlined } from "@ant-design/icons";
 import { PAGE_PARENT_ID } from "../../constant";
+import { useLockFn } from "../../hooks/useLockFn";
 
 export const  DetectSinglePackage = observer(() => {
     const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setPageName } = useStore();
@@ -24,7 +25,7 @@ export const  DetectSinglePackage = observer(() => {
         setClassifier(classifier as Classifier);
     }
 
-    const startAnalyze = async () => {
+    const startAnalyze = useLockFn(async () => {
         if (!packagePath) {
             messageApi.error('请选择npm包');
             return;
@@ -49,7 +50,7 @@ export const  DetectSinglePackage = observer(() => {
         }
         setDetectPackageResult(result);
         setIsAnalyzed(true);
-    };
+    });
 
     return (
         <div className={s.wrapper}>

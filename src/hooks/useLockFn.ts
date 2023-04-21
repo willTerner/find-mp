@@ -9,8 +9,13 @@ export function useLockFn<P extends any[] = any[], V extends any = any>(fn: (...
             return ;
         }
         lock.current = true;
-        const res = await fn(...args);
-        lock.current = false;
-        return res;
+        try{
+            const res = await fn(...args);
+            lock.current = false;
+            return res;
+        } catch(error) {
+            lock.current = false;
+            throw error;
+        }
     }
 }

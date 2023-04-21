@@ -40,7 +40,7 @@ export const ResultDetail = observer(() => {
         },
     ];
 
-    const dataSource: DataType[] = Object.entries(featurePosSet).map(([name, value]) => {
+    const dataSource: DataType[] = Object.entries(featurePosSet || {}).map(([name, value]) => {
         return {
             key: name,
             featureName: name,
