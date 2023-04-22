@@ -3,7 +3,6 @@ import { API_KEY, DetectPackageResult } from "../interface";
 import { join, basename } from 'path';
 import { asyncExec, getPackageMetaData } from "../util";
 import { WebContents } from "electron";
-import { Logger } from "../Logger";
 
 const FEATURE_EXTRACT_PATH = `/Users/huchaoqun/Desktop/code/school-course/毕设/source-code/feature-extract`;
 const NODE_PATH = '/Users/huchaoqun/.nvm/versions/node/v16.16.0/bin/node';
@@ -80,12 +79,10 @@ export async function analyzeDirectory(dirPath: string, webContents: WebContents
    const result: DetectPackageResult[] = [];
 
    webContents.send(API_KEY.UPDATE_PACKAGE_NUMBER, packages.length);
-   Logger.info('total package number is : ' + packages.length);
 
    for (const packagePath of packages) {
       result.push(await analyzeSinglePackage(packagePath));
       webContents.send(API_KEY.UPDATE_DETECT_PROGRESS);
-      Logger.info('finish analyze one package');
    }
 
    return result;
