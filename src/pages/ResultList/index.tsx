@@ -6,6 +6,7 @@ import { PageName } from "../../store";
 import useStore from "../../hooks/useStore";
 import s from './index.module.scss';
 import { DetectPackageResult } from "../../interface";
+import { v4 } from 'uuid';
 
 interface DataType {
     key: string;
@@ -85,7 +86,7 @@ export const  ResultList = observer(() => {
         };
 
         return {
-            key: result.packagePath,
+            key: result.packagePath + v4(),
             packageName: result.metaData?.packageName ||  '',
             filePath: result.packagePath,
             success: result.success,
