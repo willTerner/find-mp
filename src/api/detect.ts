@@ -4,11 +4,11 @@ import { join, basename } from 'path';
 import { asyncExec, getPackageMetaData } from "../util";
 import { WebContents } from "electron";
 
-const FEATURE_EXTRACT_PATH = `/Users/huchaoqun/Desktop/code/school-course/毕设/source-code/feature-extract`;
+
 const NODE_PATH = '/Users/huchaoqun/.nvm/versions/node/v16.16.0/bin/node';
 
-export async function analyzeSinglePackage(packagePath: string): Promise<DetectPackageResult> {
-    const command = `cd ${FEATURE_EXTRACT_PATH} && ${NODE_PATH} --es-module-specifier-resolution=node out/src/index.js -s ${packagePath}`;
+export async function analyzeSinglePackage(packagePath: string, predicatorPath: string): Promise<DetectPackageResult> {
+    const command = `cd ${predicatorPath} && ${NODE_PATH} main.js -s ${packagePath}`;
     try{
        const {stdout, stderr} = await asyncExec(command, { shell: '/bin/zsh' });
        if (!(stdout + stderr).match(/.*完成对.*的分析.*/)) {
@@ -74,14 +74,14 @@ async function getPackagesFromDir(dirPath: string) {
    return result;
 }
 
-export async function analyzeDirectory(dirPath: string, webContents: WebContents): Promise<DetectPackageResult[]> {
+export async function analyzeDirectory(dirPath: string, webContents: WebContents, predicatorPath: string): Promise<DetectPackageResult[]> {
    const packages = await getPackagesFromDir(dirPath);
    const result: DetectPackageResult[] = [];
 
    webContents.send(API_KEY.UPDATE_PACKAGE_NUMBER, packages.length);
 
    for (const packagePath of packages) {
-      result.push(await analyzeSinglePackage(packagePath));
+      result.push(await analyzeSinglePackage(packagePath, predicatorPath));
       webContents.send(API_KEY.UPDATE_DETECT_PROGRESS);
    }
 

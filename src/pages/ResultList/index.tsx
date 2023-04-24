@@ -28,6 +28,10 @@ export const  ResultList = observer(() => {
         setPageName(PageName.RESULT_DETAIL);
     };
 
+    if (!Array.isArray(resultList)) {
+        return null;
+    }
+    
     const columns: ColumnsType<DataType> = [
         {
             key: 'packageName',
@@ -91,9 +95,6 @@ export const  ResultList = observer(() => {
         };
     })
 
-    if (!Array.isArray(resultList)) {
-        return null;
-    }
 
     return (
         <div className={s.wrap}>

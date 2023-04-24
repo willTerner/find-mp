@@ -1,6 +1,9 @@
 import type { Configuration } from 'webpack';
 
 import { rules } from './webpack.rules';
+// eslint-disable-next-line import/default
+import  CopyPlugin  from 'copy-webpack-plugin'
+
 
 export const mainConfig: Configuration = {
   /**
@@ -15,4 +18,12 @@ export const mainConfig: Configuration = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{
+        from: 'predictor',
+        to: 'predictor'
+      }]
+    })
+  ]
 };
