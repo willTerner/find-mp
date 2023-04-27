@@ -5,7 +5,7 @@ import { asyncExec, getPackageMetaData } from "../util";
 import { WebContents } from "electron";
 
 
-const NODE_PATH = '/Users/huchaoqun/.nvm/versions/node/v16.16.0/bin/node';
+const NODE_PATH = 'node';
 
 export async function analyzeSinglePackage(packagePath: string, predicatorPath: string): Promise<DetectPackageResult> {
     const command = `cd ${predicatorPath} && ${NODE_PATH} main.js -s ${packagePath}`;
