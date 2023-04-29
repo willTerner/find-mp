@@ -1,7 +1,7 @@
-import { makeAutoObservable } from "mobx";
-import { DetectPackageResult } from "../interface";
+import { makeAutoObservable } from 'mobx'
+import { type DetectPackageResult } from '../interface'
 
-export enum PageName{
+export enum PageName {
     DETECT_SINGLE_PACKAGE,
     DETECT_DIRECTORY,
     RESULT_DETAIL,
@@ -15,57 +15,56 @@ export enum Classifier {
     MLP = 'MLP',
 }
 
-
 export class PageStore {
-    currentPage = PageName.DETECT_SINGLE_PACKAGE;
+    currentPage = PageName.DETECT_SINGLE_PACKAGE
 
-    classifier = Classifier.SVM;
+    classifier = Classifier.SVM
 
-    detectPackageResult?: DetectPackageResult;
+    detectPackageResult?: DetectPackageResult
 
-    resultList?: DetectPackageResult[]; 
+    resultList?: DetectPackageResult[]
 
-    packagePath = '';
+    packagePath = ''
 
-    dirPath = '';
+    dirPath = ''
 
-    totalPackageNumber?: number;
+    totalPackageNumber?: number
 
-    detectPackageNumber = 0;
+    detectPackageNumber = 0
 
-    constructor() {
-        makeAutoObservable(this);
+    constructor () {
+        makeAutoObservable(this)
     }
 
     setPageName = (pageName: PageName) => {
-        this.currentPage = pageName;
+        this.currentPage = pageName
     }
 
     setClassifier = (classifier: Classifier) => {
-        this.classifier = classifier;
+        this.classifier = classifier
     }
 
     setPackagePath = (packagePath: string) => {
-        this.packagePath = packagePath;
+        this.packagePath = packagePath
     }
 
     setDirPath = (dirPath: string) => {
-        this.dirPath = dirPath;
+        this.dirPath = dirPath
     }
 
     setDetectPackageResult = (result: DetectPackageResult) => {
-        this.detectPackageResult = result;
+        this.detectPackageResult = result
     }
 
     setResultList = (resultList: DetectPackageResult[]) => {
-        this.resultList = resultList;
+        this.resultList = resultList
     }
 
     setTotalPackageNumber = (totalPackageNumber: number) => {
-        this.totalPackageNumber = totalPackageNumber;
+        this.totalPackageNumber = totalPackageNumber
     }
 
     updateDetectProgress = () => {
-        this.detectPackageNumber++;
+        this.detectPackageNumber++
     }
 }

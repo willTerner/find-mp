@@ -1,13 +1,13 @@
-import chalk from "chalk";
+import chalk from 'chalk'
 
 export const Logger = {
     info: (message: string) => {
-        console.log(chalk.green(new Date().toLocaleString() + ': ' + message));
+        console.log(chalk.green(new Date().toLocaleString() + ': ' + message))
     },
     error: (message: string) => {
-        console.log(chalk.red(new Date().toLocaleString() + ': ' + message));
+        console.log(chalk.red(new Date().toLocaleString() + ': ' + message))
     },
     warn: (message: string) => {
-        console.log(chalk.yellow(new Date().toLocaleString() + ': ' + message));
-    } 
+        console.log(chalk.yellow(new Date().toLocaleString() + ': ' + message))
+    }
 }

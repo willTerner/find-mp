@@ -1,20 +1,19 @@
-import { observer } from "mobx-react";
-import React, { ReactNode } from "react";
-import s from './index.module.scss';
-import { Menu }  from "./menu";
-import cx from 'classnames';
-import { useUpdateDetectProgress, useUpdatePackageNumber } from "../hooks/useNotification";
-import { PAGE_PARENT_ID } from "../constant";
+import { observer } from 'mobx-react'
+import React, { type ReactNode } from 'react'
+import s from './index.module.scss'
+import { Menu } from './menu'
+import cx from 'classnames'
+import { useUpdateDetectProgress, useUpdatePackageNumber } from '../hooks/useNotification'
+import { PAGE_PARENT_ID } from '../constant'
 
 interface IProp {
-    children: ReactNode;
+    children: ReactNode
 }
 
-export const  Layout = observer(({ children }: IProp) => {
+export const Layout = observer(({ children }: IProp) => {
+    useUpdateDetectProgress()
+    useUpdatePackageNumber()
 
-    useUpdateDetectProgress();
-    useUpdatePackageNumber();
-    
     return (
         <div className={s.wrapper}>
             <div className={s.left}>
@@ -28,4 +27,4 @@ export const  Layout = observer(({ children }: IProp) => {
             </div>
         </div>
     )
-});
+})
