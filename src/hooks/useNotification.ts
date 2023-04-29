@@ -1,4 +1,4 @@
-import { API_KEY, BridgeWindow } from "../interface";
+import { API_KEY, BridgeWindow } from "@interface";
 import useStore from "./useStore";
 
 

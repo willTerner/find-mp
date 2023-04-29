@@ -2,10 +2,10 @@ import { Button, Table, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { observer } from "mobx-react";
 import React from "react";
-import { PageName } from "../../store";
-import useStore from "../../hooks/useStore";
+import { PageName } from "@store/index";
+import useStore from "@hooks/useStore";
 import s from './index.module.scss';
-import { DetectPackageResult } from "../../interface";
+import { DetectPackageResult } from "@interface";
 import { v4 } from 'uuid';
 
 interface DataType {

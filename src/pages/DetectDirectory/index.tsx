@@ -1,16 +1,16 @@
 import { observer } from "mobx-react";
 import React, { useState } from "react";
-import { Classifier, PageName } from "../../store";
-import useStore from "../../hooks/useStore";
+import useStore from "@hooks/useStore";
 import s from './index.module.scss';
 import { Button, Progress, Select } from "antd";
-import { SelectDirectory } from "../../component/SelectDirectory";
-import { API_KEY, BridgeWindow } from "../../interface";
-import useMessageApi from "../../hooks/useMessageApi";
-import Portal from "../../component/Portal";
-import { PAGE_PARENT_ID } from "../../constant";
-import Mask from "../../component/Mask";
-import { useLockFn } from "../../hooks/useLockFn";
+import { SelectDirectory } from "@component/SelectDirectory";
+import { API_KEY, BridgeWindow } from "@interface";
+import useMessageApi from "@hooks/useMessageApi";
+import Portal from "@component/Portal";
+import { PAGE_PARENT_ID } from "@constant";
+import Mask from "@component/Mask";
+import { useLockFn } from '@hooks/useLockFn';
+import { Classifier, PageName } from "@store/index";
 
 export const  DetectDirectory= observer(() => {
     const { setClassifier, setDirPath, dirPath, setResultList, setPageName, totalPackageNumber, detectPackageNumber } = useStore();

@@ -1,18 +1,18 @@
 import { observer } from "mobx-react";
 import React, { useState } from "react";
-import { Classifier, PageName } from "../../store";
-import useStore from "../../hooks/useStore";
+import { Classifier, PageName } from "@store/index";
+import useStore from "@hooks/useStore";
 import s from './index.module.scss';
 import { Button, Select, Spin } from "antd";
-import { SelectDirectory } from "../../component/SelectDirectory";
-import { API_KEY, BridgeWindow } from "../../interface";
-import useMessageApi from "../../hooks/useMessageApi";
-import { pushClosableMessage } from "../../util/info";
-import Portal from "../../component/Portal";
-import Mask from "../../component/Mask";
+import { SelectDirectory } from "@component/SelectDirectory";
+import { API_KEY, BridgeWindow } from "@interface";
+import useMessageApi from "@hooks/useMessageApi";
+import { pushClosableMessage } from "@util/info";
+import Portal from "@component/Portal";
+import Mask from "@component/Mask";
 import { LoadingOutlined } from "@ant-design/icons";
-import { PAGE_PARENT_ID } from "../../constant";
-import { useLockFn } from "../../hooks/useLockFn";
+import { PAGE_PARENT_ID } from "@constant";
+import { useLockFn } from "@hooks/useLockFn";
 
 export const  DetectSinglePackage = observer(() => {
     const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setPageName } = useStore();

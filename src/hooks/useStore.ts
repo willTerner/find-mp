@@ -1,6 +1,6 @@
 import { MobXProviderContext } from "mobx-react";
 import { useContext } from "react";
-import { PageStore } from "../store";
+import { PageStore } from "@store/index";
 
 
 

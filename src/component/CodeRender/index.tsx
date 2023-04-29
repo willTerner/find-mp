@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_KEY, BridgeWindow } from "../../interface";
+import { API_KEY, BridgeWindow } from "@interface";
 
 interface IProp {
     filePath: string;

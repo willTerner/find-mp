@@ -1,11 +1,11 @@
 import { readFile, readdir } from "fs/promises";
-import { API_KEY, DetectPackageResult } from "../interface";
+import { API_KEY, DetectPackageResult } from "@interface";
 import { join, basename } from 'path';
-import { asyncExec, getPackageMetaData } from "../util";
+import { asyncExec, getPackageMetaData } from "@util/index";
 import { WebContents } from "electron";
 
 
-const NODE_PATH = 'node';
+const NODE_PATH = '/Users/huchaoqun/.nvm/versions/node/v16.16.0/bin/node';
 
 export async function analyzeSinglePackage(packagePath: string, predicatorPath: string): Promise<DetectPackageResult> {
     const command = `cd ${predicatorPath} && ${NODE_PATH} main.js -s ${packagePath}`;

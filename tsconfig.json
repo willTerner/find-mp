@@ -12,10 +12,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+        "@hooks/*": ["src/hooks/*"],
+        "@component/*": ["src/component/*"],
+        "@store/*": ["src/store/*"],
+        "@constant": ["src/constant.ts"],
+        "@util/*": ["src/util/*"],
+        "@interface": ["src/interface.ts"],
     },
     "jsx": "react",
     "types": ["file-loader", "node"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
 }

@@ -13,5 +13,20 @@
     "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
-  "ignorePatterns": ["predictor"]
+  "ignorePatterns": ["predictor"],
+  "plugins": ["import", "eslint-import-resovler-alias"],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@hooks", "./src/hooks"],
+          ["@component", "./src/component"],
+          ["@store", "./src/store"],
+          ["@constant", "./src/constant.ts"],
+          ["@interface", "./src/interface.ts"]
+        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx"]
+      }
+    }
+  }
 }

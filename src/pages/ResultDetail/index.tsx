@@ -1,11 +1,11 @@
 import { observer } from "mobx-react";
 import React from "react";
-import useStore from "../../hooks/useStore";
+import useStore from "@hooks/useStore";
 import s from './index.module.scss';
 import cx from 'classnames';
-import { Record } from "../../interface";
+import { Record } from "@interface";
 import Table, { ColumnsType } from "antd/es/table";
-import CodeRender from "../../component/CodeRender";
+import CodeRender from "@component/CodeRender";
 import { v4 } from 'uuid';
 
 interface DataType {

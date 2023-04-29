@@ -1,7 +1,7 @@
 import { Tooltip } from "antd";
 import { observer } from "mobx-react-lite";
 import React, { useState } from "react";
-import { API_KEY, BridgeWindow } from "../../interface";
+import { API_KEY, BridgeWindow } from "@interface";
 import s from './index.module.scss';
 import { ContainerOutlined } from "@ant-design/icons";
 
