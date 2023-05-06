@@ -3,34 +3,32 @@ import s from './index.module.scss'
 import hackerImg from '../../imgs/security.png'
 import { CopyFilled, ProfileFilled, FileFilled, DatabaseFilled } from '@ant-design/icons'
 import { observer } from 'mobx-react'
-import useStore from '../../hooks/useStore'
-import { PageName } from '../../store'
+import { Link } from 'react-router-dom'
+import { PagePath } from '@interface'
 
 export const Menu = observer(() => {
-    const { setPageName } = useStore()
-
     return (
         <div className={s.wrapper}>
             <div className={s.logoWrapper}>
                 <img src={hackerImg} className={s.logo}></img>
                 <span className={s.name}>FindMP</span>
             </div>
-            <div className={s.item} onClick={() => { setPageName(PageName.DETECT_SINGLE_PACKAGE) }}>
+            <Link className={s.item} to={PagePath.DETECT_SINGLE_PACKAGE}>
                 <CopyFilled className={s.space}></CopyFilled>
                 <span>检测单个包</span>
-            </div>
-            <div className={s.item} onClick={() => { setPageName(PageName.DETECT_DIRECTORY) }}>
+            </Link>
+            <Link className={s.item} to={PagePath.DETECT_DIRECTORY}>
                 <ProfileFilled className={s.space}></ProfileFilled>
                 <span>检测目录</span>
-            </div>
-            <div className={s.item} onClick={() => { setPageName(PageName.RESULT_DETAIL) }}>
+            </Link>
+            <Link className={s.item} to={PagePath.RESULT_DETAIL}>
                 <FileFilled className={s.space}></FileFilled>
                 <span>检测结果</span>
-            </div>
-            <div className={s.item} onClick={() => { setPageName(PageName.RESULT_LIST) }}>
+            </Link>
+            <Link className={s.item} to={PagePath.RESULT_LIST}>
                 <DatabaseFilled className={s.space}></DatabaseFilled>
                 <span>检测结果列表</span>
-            </div>
+            </Link>
         </div>
     )
 })

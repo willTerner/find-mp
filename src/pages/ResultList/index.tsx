@@ -2,11 +2,11 @@ import { Button, Table, Tooltip } from 'antd'
 import { type ColumnsType } from 'antd/es/table'
 import { observer } from 'mobx-react'
 import React from 'react'
-import { PageName } from '@store/index'
 import useStore from '@hooks/useStore'
 import s from './index.module.scss'
-import { type DetectPackageResult } from '@interface'
+import { PagePath, type DetectPackageResult } from '@interface'
 import { v4 } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 
 interface DataType {
     key: string
@@ -19,14 +19,14 @@ interface DataType {
 }
 
 export const ResultList = observer(() => {
-    const { resultList, dirPath, setPageName, setDetectPackageResult } = useStore()
-
+    const { resultList, dirPath, setDetectPackageResult } = useStore()
+    const navigate = useNavigate()
     const onClickResult = (record: DataType) => {
         if (!record.success) {
             return
         }
         setDetectPackageResult(record.detectResult)
-        setPageName(PageName.RESULT_DETAIL)
+        navigate(PagePath.RESULT_DETAIL)
     }
 
     if (!Array.isArray(resultList)) {

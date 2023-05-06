@@ -2,10 +2,10 @@ import { message } from 'antd'
 import { observer, Provider } from 'mobx-react'
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Layout } from './layout'
-import { Router } from './router'
+import { router } from './router'
 import { PageStore } from './store'
 import './highlightJs'
+import { RouterProvider } from 'react-router-dom'
 
 document.documentElement.style.fontSize = 100 * (document.documentElement.clientWidth || document.body.clientWidth) / 1442 + 'px'
 
@@ -20,10 +20,8 @@ const App = observer(() => {
     }, [])
     return (
         <Provider store={store} messageApi={messageApi}>
-            <Layout>
-                {contextHolder}
-                <Router></Router>
-            </Layout>
+            {contextHolder}
+            <RouterProvider router={router}></RouterProvider>
         </Provider>
     )
 })

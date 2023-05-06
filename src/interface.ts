@@ -77,3 +77,11 @@ export interface DetectPackageResult {
     }
     errorMessage?: string
 }
+
+export enum PagePath {
+    ROOT_PATH = '/main_window',
+    DETECT_SINGLE_PACKAGE = '/main_window/detect/single',
+    DETECT_DIRECTORY = '/main_window/detect/directory',
+    RESULT_DETAIL = '/main_window/result/single',
+    RESULT_LIST = '/main_window/result/list',
+}

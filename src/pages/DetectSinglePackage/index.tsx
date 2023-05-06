@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-import { Classifier, PageName } from '@store/index'
+import { Classifier } from '@store/index'
 import useStore from '@hooks/useStore'
 import s from './index.module.scss'
 import { Button, Select, Spin } from 'antd'
 import { SelectDirectory } from '@component/SelectDirectory'
-import { API_KEY, type BridgeWindow } from '@interface'
+import { API_KEY, PagePath, type BridgeWindow } from '@interface'
 import useMessageApi from '@hooks/useMessageApi'
 import { pushClosableMessage } from '@util/info'
 import Portal from '@component/Portal'
@@ -13,13 +13,15 @@ import Mask from '@component/Mask'
 import { LoadingOutlined } from '@ant-design/icons'
 import { PAGE_PARENT_ID } from '@constant'
 import { useLockFn } from '@hooks/useLockFn'
+import { useNavigate } from 'react-router-dom'
 
 export const DetectSinglePackage = observer(() => {
-    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult, setPageName } = useStore()
+    const { setClassifier, setPackagePath, packagePath, setDetectPackageResult } = useStore()
     const messageApi = useMessageApi()
 
     const [isAnalyzed, setIsAnalyzed] = useState(false)
     const [isAnalyzing, setIsAnalyzing] = useState(false)
+    const navigate = useNavigate()
 
     const selectClassifier = (classifier: string) => {
         setClassifier(classifier as Classifier)
@@ -70,7 +72,7 @@ export const DetectSinglePackage = observer(() => {
             </div>
             <SelectDirectory onSelectFile={packagePath => { setPackagePath(packagePath) }} uploadText={'点击上传npm包'}></SelectDirectory>
             <Button type='primary' onClick={startAnalyze} style={{ marginBottom: '0.4rem' }}>开始分析</Button>
-            { isAnalyzed && <Button type="link" onClick={() => { setPageName(PageName.RESULT_DETAIL) }}>查看分析结果</Button>}
+            { isAnalyzed && <Button type="link" onClick={() => navigate(PagePath.RESULT_DETAIL)}>查看分析结果</Button>}
             <Portal parentContainer={document.getElementById(PAGE_PARENT_ID)} isShowPortal={isAnalyzing}>
                 <Mask>
                     <Spin

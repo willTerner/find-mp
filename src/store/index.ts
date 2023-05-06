@@ -1,13 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { type DetectPackageResult } from '../interface'
 
-export enum PageName {
-    DETECT_SINGLE_PACKAGE,
-    DETECT_DIRECTORY,
-    RESULT_DETAIL,
-    RESULT_LIST,
-}
-
 export enum Classifier {
     RF = 'RF',
     SVM = 'SVM',
@@ -16,8 +9,6 @@ export enum Classifier {
 }
 
 export class PageStore {
-    currentPage = PageName.DETECT_SINGLE_PACKAGE
-
     classifier = Classifier.SVM
 
     detectPackageResult?: DetectPackageResult
@@ -34,10 +25,6 @@ export class PageStore {
 
     constructor () {
         makeAutoObservable(this)
-    }
-
-    setPageName = (pageName: PageName) => {
-        this.currentPage = pageName
     }
 
     setClassifier = (classifier: Classifier) => {

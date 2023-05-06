@@ -18,7 +18,9 @@
             "@store/*": ["src/store/*"],
             "@constant": ["src/constant.ts"],
             "@util/*": ["src/util/*"],
-            "@interface": ["src/interface.ts"]
+            "@interface": ["src/interface.ts"],
+            "@pages/*": ["src/pages/*"],
+            "@layout/*": ["src/layout/*"]
         },
         "jsx": "react",
         "types": ["file-loader", "node"]

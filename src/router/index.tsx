@@ -1,24 +1,37 @@
-
-/* eslint-disable indent */
+import { createBrowserRouter } from 'react-router-dom'
 import React from 'react'
-import { PageName } from '../store'
-import useStore from '../hooks/useStore'
-import { DetectSinglePackage } from '../pages/DetectSinglePackage'
-import { DetectDirectory } from '../pages/DetectDirectory'
-import { ResultDetail } from '../pages/ResultDetail'
-import { ResultList } from '../pages/ResultList'
-import { observer } from 'mobx-react'
+import { DetectSinglePackage } from '@pages/DetectSinglePackage'
+import { PagePath } from '@interface'
+import { Layout } from '@layout/index'
+import { DetectDirectory } from '@pages/DetectDirectory'
+import { ResultDetail } from '@pages/ResultDetail'
+import { ResultList } from '@pages/ResultList'
 
-export const Router = observer(() => {
-    const { currentPage } = useStore()
-    switch (currentPage) {
-        case PageName.DETECT_SINGLE_PACKAGE:
-            return <DetectSinglePackage></DetectSinglePackage>
-        case PageName.DETECT_DIRECTORY:
-            return <DetectDirectory></DetectDirectory>
-        case PageName.RESULT_DETAIL:
-            return <ResultDetail></ResultDetail>
-        case PageName.RESULT_LIST:
-            return <ResultList></ResultList>
+export const router = createBrowserRouter([
+    {
+        path: PagePath.ROOT_PATH,
+        element: <Layout></Layout>,
+        children: [
+            {
+                index: true,
+                element: <DetectSinglePackage></DetectSinglePackage>
+            },
+            {
+                path: PagePath.DETECT_SINGLE_PACKAGE.substring(13),
+                element: <DetectSinglePackage></DetectSinglePackage>
+            },
+            {
+                path: PagePath.DETECT_DIRECTORY.substring(13),
+                element: <DetectDirectory></DetectDirectory>
+            },
+            {
+                path: PagePath.RESULT_DETAIL.substring(13),
+                element: <ResultDetail></ResultDetail>
+            },
+            {
+                path: PagePath.RESULT_LIST.substring(13),
+                element: <ResultList></ResultList>
+            }
+        ]
     }
-})
+])

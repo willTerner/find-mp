@@ -4,19 +4,21 @@ import useStore from '@hooks/useStore'
 import s from './index.module.scss'
 import { Button, Progress, Select } from 'antd'
 import { SelectDirectory } from '@component/SelectDirectory'
-import { API_KEY, type BridgeWindow } from '@interface'
+import { API_KEY, PagePath, type BridgeWindow } from '@interface'
 import useMessageApi from '@hooks/useMessageApi'
 import Portal from '@component/Portal'
 import { PAGE_PARENT_ID } from '@constant'
 import Mask from '@component/Mask'
 import { useLockFn } from '@hooks/useLockFn'
-import { Classifier, PageName } from '@store/index'
+import { Classifier } from '@store/index'
+import { useNavigate } from 'react-router-dom'
 
 export const DetectDirectory = observer(() => {
-    const { setClassifier, setDirPath, dirPath, setResultList, setPageName, totalPackageNumber, detectPackageNumber } = useStore()
+    const { setClassifier, setDirPath, dirPath, setResultList, totalPackageNumber, detectPackageNumber } = useStore()
     const messageApi = useMessageApi()
     const [isAnalyzed, setIsAnalyzed] = useState(false)
     const [isAnalyzing, setIsAnalyzing] = useState(false)
+    const navigate = useNavigate()
 
     const selectClassifier = (classifier: string) => {
         setClassifier(classifier as Classifier)
@@ -58,7 +60,7 @@ export const DetectDirectory = observer(() => {
             </div>
             <SelectDirectory onSelectFile={packagePath => { setDirPath(packagePath) }} uploadText={'点击上传目录'}></SelectDirectory>
             <Button type='primary' onClick={startAnalyze} style={{ marginBottom: '0.4rem' }}>开始分析</Button>
-            { isAnalyzed && <Button type="link" onClick={() => { setPageName(PageName.RESULT_LIST) }}>查看分析结果</Button>}
+            { isAnalyzed && <Button type="link" onClick={() => navigate(PagePath.RESULT_LIST) }>查看分析结果</Button>}
             <Portal parentContainer={document.getElementById(PAGE_PARENT_ID)} isShowPortal={isAnalyzing}>
                 <Mask>
                     { totalPackageNumber && <Progress percent={ Math.floor(detectPackageNumber / totalPackageNumber * 100) } type={'circle'} trailColor="white" format={percent => <div style={{ fontSize: '0.4rem', color: 'white', fontWeight: '900' }}>{percent}%</div>}></Progress>}

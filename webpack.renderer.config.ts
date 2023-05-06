@@ -50,7 +50,9 @@ export const rendererConfig: Configuration = {
             '@store': 'src/store',
             '@util': 'src/util',
             '@interface': 'src/interface.ts',
-            '@constant': 'src/constant.ts'
+            '@constant': 'src/constant.ts',
+            '@pages': 'src/pages',
+            '@layout': 'src/layout'
         }
     }
 }
