@@ -48,7 +48,8 @@
         "style-loader": "^3.3.2",
         "ts-loader": "^9.4.2",
         "typescript": "^5.0.4",
-        "typings-for-css-modules-loader": "^1.7.0"
+        "typings-for-css-modules-loader": "^1.7.0",
+        "webpack-merge": "^5.8.0"
     },
     "dependencies": {
         "@babel/core": "^7.21.4",

@@ -1,58 +1,48 @@
 import type { Configuration } from 'webpack'
 
-import { rules } from './webpack.rules'
-import { plugins } from './webpack.plugins'
+import merge from 'webpack-merge'
+import type IForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import { commonConfig } from './webpack.common.config'
 
-rules.push({
-    test: /\.css$/,
-    use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
-})
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const ForkTsCheckerWebpackPlugin: typeof IForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 
-rules.push({
-    test: /\.scss$/,
-    use: [
-        'style-loader', // creates style nodes from JS strings
-        {
-            loader: 'css-loader',
-            options: {
-                modules: true
-            }
-        }, // translates CSS into CommonJS
-        'sass-loader' // compiles Sass to CSS
-    ]
-})
-
-rules.push({
-    test: /\.(png|svg|jpg|gif)$/,
-    use: [
-        {
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]',
-                outputPath: 'images/',
-                publicPath: '../images/'
-            }
-        }
-    ]
-})
-
-export const rendererConfig: Configuration = {
+export const rendererConfig: Configuration = merge(commonConfig, {
     module: {
-        rules
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    'style-loader', // creates style nodes from JS strings
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[local]-[hash]'
+                            }
+                        }
+                    }, // translates CSS into CommonJS
+                    'sass-loader' // compiles Sass to CSS
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]',
+                            outputPath: 'images/',
+                            publicPath: '../images/'
+                        }
+                    }
+                ]
+            }
+        ]
     },
-    plugins,
-    resolve: {
-        extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
-        modules: ['node_modules', __dirname],
-        alias: {
-            '@hooks': 'src/hooks',
-            '@component': 'src/component',
-            '@store': 'src/store',
-            '@util': 'src/util',
-            '@interface': 'src/interface.ts',
-            '@constant': 'src/constant.ts',
-            '@pages': 'src/pages',
-            '@layout': 'src/layout'
-        }
-    }
-}
+    plugins: [
+        new ForkTsCheckerWebpackPlugin({
+            logger: 'webpack-infrastructure'
+        })
+    ]
+})
