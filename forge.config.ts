@@ -28,7 +28,12 @@ const config: ForgeConfig = {
                     }
                 ]
             },
-            port: 4000
+            port: 4000,
+            devServer: {
+                proxy: {
+                    '/': 'http://localhost:4000/main_window'
+                }
+            }
         })
     ]
 }

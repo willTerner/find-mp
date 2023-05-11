@@ -72,7 +72,9 @@ export const DetectSinglePackage = observer(() => {
             </div>
             <SelectDirectory onSelectFile={packagePath => { setPackagePath(packagePath) }} uploadText={'点击上传npm包'}></SelectDirectory>
             <Button type='primary' onClick={startAnalyze} style={{ marginBottom: '0.4rem' }}>开始分析</Button>
-            { isAnalyzed && <Button type="link" onClick={() => navigate(PagePath.RESULT_DETAIL)}>查看分析结果</Button>}
+            { isAnalyzed && <Button type="link" onClick={() => {
+                navigate(PagePath.RESULT_DETAIL)
+            }}>查看分析结果</Button>}
             <Portal parentContainer={document.getElementById(PAGE_PARENT_ID)} isShowPortal={isAnalyzing}>
                 <Mask>
                     <Spin
